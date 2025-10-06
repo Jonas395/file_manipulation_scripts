@@ -1,12 +1,12 @@
 import json
 import os
 
-dirname = os.path.dirname(__file__)
-input_directory = os.path.join(dirname, "input")
-output_directory = os.path.join(dirname, "output")
+from file_utility import get_folders
 
 field_1 = '1'
 field_2 = '2'
+
+input_directory, output_directory = get_folders(__file__)
 
 for name in os.listdir(input_directory):
     file_path = os.path.join(input_directory, name)

@@ -1,28 +1,17 @@
 from PIL import Image
 import os
 
-# Step 2
-input_dir = "input/"
-output_dir = "output/"
+from extensions import extensions
+from file_utility import get_folders
+input_directory, output_directory = get_folders(__file__)
 
-# Create output directory if it doesn't exist
-if not os.path.exists(output_dir):
-    os.makedirs(output_dir)
-
-# Get all files in the input directory
-files = os.listdir(input_dir)
-
-# Iterate through each file in the input directory
-for file in files:
-    # Check if the file is an image
-    if file.endswith(".webp") or file.endswith(".png"):
-        # Open the image
-        image_path = os.path.join(input_dir, file)
+for file in input_directory:
+    if file.endswith(extensions.WEBP) or file.endswith(extensions.PNG):
+        image_path = os.path.join(input_directory, file)
         image = Image.open(image_path)
 
-        # Convert the image format (e.g., from JPEG to PNG)
-        new_file = os.path.splitext(file)[0] + ".png"
-        output_path = os.path.join(output_dir, new_file)
+        new_file = os.path.splitext(file)[0] + extensions.PNG
+        output_path = os.path.join(output_directory, new_file)
         image.save(output_path, format="PNG")
 
         print(f"Converted {file} to PNG")

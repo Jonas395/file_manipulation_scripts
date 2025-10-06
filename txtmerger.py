@@ -1,15 +1,17 @@
-import json
 import os
+from extensions import extensions
+from file_utility import get_folders, get_os_path
 
-dirname = os.path.dirname(__file__)
-input_directory = os.path.join(dirname, "input")
-output_directory = os.path.join(dirname, "output")
+file_name = "merged" # Name of the output file without extension
 
-output_path = os.path.join(output_directory, f"merged.txt")
+input_directory, output_directory = get_folders(__file__)
 
-for name in os.listdir(input_directory):
-    file_path = os.path.join(input_directory, name)
-    with open(file_path, encoding="utf-8") as file:
-        data = file.read()
-        with open(output_path, "a", encoding="utf-8") as output_file:
-            output_file.write(data + "\n")
+output_file_path = get_os_path(output_directory, f"{file_name}{extensions.TXT}")
+
+for file in os.listdir(input_directory):
+    if file.endswith(extensions.TXT):
+        file_path = get_os_path(input_directory, file)
+        with open(file_path, encoding="utf-8") as txt_file:
+            file_content = txt_file.read()
+            with open(output_file_path, "a", encoding="utf-8") as output_file:
+                output_file.write(file_content + "\n")

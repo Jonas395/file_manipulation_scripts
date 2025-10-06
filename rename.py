@@ -1,15 +1,20 @@
 import os
 
-input_directory = os.listdir('input') 
+from file_utility import change_filename, get_extension, get_folders, get_os_path
 
-for file in input_directory:
-    old_path = os.path.join('input', file)
 
-    file_name = file.split('-')
-    file_extension = file.split('.')
-    
-    new_name = f'{file_name[0].replace(' ', '')}.{file_extension[1]}'
-    new_path = os.path.join('input', new_name)
+input_directory, output_directory = get_folders(__file__)
 
-    if old_path != new_path:
-        os.rename(old_path, new_path)
+def name_modification(file, *args):
+    extension = get_extension(file)
+    new_name = file.replace(extension, "").lower()
+
+    new_name = new_name.replace(".", "_")
+    return f'{new_name}{extension}'
+
+for file in os.listdir(input_directory):
+    old_path = get_os_path('input', file)
+    new_name = name_modification(file)
+    new_path = get_os_path('output', new_name)
+
+    change_filename(old_path, new_path)
