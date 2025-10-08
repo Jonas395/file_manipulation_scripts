@@ -6,9 +6,17 @@ input_directory, output_directory = get_folders(__file__)
 
 def name_modification(file, *args):
     extension = get_extension(file)
-    new_name = file.replace(extension, "").upper()
+    new_name = file.replace(extension, "")
+    new_name = new_name.lower()
+    #new_name = new_name.replace("-", "_")
+    #new_name = new_name[1:]
+    if len(new_name) != 7:
+        print(new_name)
 
-    new_name = new_name.replace("copy", "")
+    
+    #new_name = f'0{new_name}'
+    #new_name = new_name.split("-")[0]
+
     return f'{new_name}{extension}'
 
 def rename_file(input_directory, output_directory, file):

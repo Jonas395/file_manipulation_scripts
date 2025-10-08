@@ -12,8 +12,7 @@ def get_folders(__file__):
     return input_directory, output_directory
 
 def ensure_directory(output_directory):
-    if not os.path.exists(output_directory):
-        os.makedirs(output_directory)
+    os.makedirs(output_directory, exist_ok=True)
 
 def get_os_path(*args):
     return os.path.join(*args)
